@@ -1,0 +1,92 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    username: root
+    password: zjz666666
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&serverTimezone=UTC&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    initialSize: 5 #初始连接数
+    minIdle: 5 #最小连接数
+    maxActive: 20 #最大连接数
+    maxWait: 60000 #配置获取连接等待超时的时间
+    timeBetweenEvictionRunsMillis: 60000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+
+
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+# MailProperties
+  mail:
+    host: smtp.sina.com
+    port: 465
+    username: mengzhiayuan@sina.com
+    password: a6e6e3a1427e8822
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
+# RedisProperties
+  redis:
+    database: 7
+    host: localhost
+    port: 6379
+
+#kafkaProperties
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: community-consumer-group
+      enable-auto-commit: true
+      auto-commit-interval: 3000
+  data:
+    elasticsearch:
+      cluster-name: mengzhiayuan
+      cluster-nodes: 127.0.0.1:9300
+#spring 线程池配置
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 15
+        queue-capacity: 100
+    scheduling:
+      pool:
+        size: 5
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.mengzhiayuan.naruto.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true   #自动生成id
+
+# 应用的上下文路径，也可以称为项目路径，是构成url地址的一部分
+server:
+  servlet:
+    context-path: /community
+
+
+# community
+community:
+  path:
+    domain: http://localhost:8080
+    upload: d:/work/data/upload  #文件上传路径(将文件放在服务器哪里)
+
+logging:
+  level:
+    com.mengzhiayuan.naruto: debug
+
